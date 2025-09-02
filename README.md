@@ -50,7 +50,4 @@ Step 4: Run codes in "SurfaceRec" and convert the model output from AMs → Poin
 ## Citation
 If you use this code, please cite:  
 @article{your2025medreshaper,
-  title={MedReShaper: Multi-View Anatomical Shape Reconstruction from Incomplete Meshes},
-  author={Your Name and Others},
-  journal={Medical Image Analysis},
-  year={2025}}
+  title={MedReShaper｝
