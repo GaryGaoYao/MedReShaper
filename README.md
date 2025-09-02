@@ -1,4 +1,4 @@
-# MedReShaper [to be published]
+# MedReShaper Introductions
 MedReShaper: MedReShaper: An AI-driven Workflow for 3D Anatomical Shape Modeling with Multi-Ethnic Clinical Validations in Orbital Surgery
 
 MedReShaper is an AI-based system for automatically completing 3D anatomic shapes in clinical settings. It introduces a novel fishbone-structured network architecture, ASM-Net, capable of reconstructing anatomically plausible shapes from defective or incomplete medical shapes. The system is validated on clinical and multi-center datasets, demonstrating sub-millimeter accuracy and strong generalizability.
@@ -16,4 +16,9 @@ MedReShaper is an AI-based system for automatically completing 3D anatomic shape
 🔬 Clinically validated on orbital reconstruction cases
 
 🌍 Multi-ethnic, multi-source datasets supported
+
+# Reference Models:
+U-Net:   https://github.com/milesial/Pytorch-UNet
+V-Net:   https://github.com/yingkaisha/keras-unet-collection
+nnUnet:  https://github.com/MIC-DKFZ/nnUNet
 
