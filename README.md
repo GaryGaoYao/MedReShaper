@@ -36,7 +36,9 @@ Step 2: Run codes in "DataPreparation" to normalize, prepare P-AM (1), and sub-A
 
 Step 3: Run train.py 
 
-Step 4: Convert the model output from AMs → Point Clouds → Surface Meshes, and get automatically the best surface among multiple candidates generated from a single P-AM.
+Step 4: Run codes in "SurfaceRec"
+
+Convert the model output from AMs → Point Clouds → Surface Meshes, and get automatically the best surface among multiple candidates generated from a single P-AM.
 
 Step 4: Run code
 
