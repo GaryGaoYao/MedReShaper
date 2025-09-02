@@ -1,0 +1,82 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class ConvBlock3D(nn.Module):
+    def __init__(self, in_c, out_c, n_convs=2, p_drop=0.0):
+        super().__init__()
+        layers, c = [], in_c
+        for _ in range(n_convs):
+            layers += [
+                nn.Conv3d(c, out_c, 3, 1, 1, bias=False),
+                nn.InstanceNorm3d(out_c, affine=True),
+                nn.PReLU(out_c),
+            ]
+            c = out_c
+        self.blocks = nn.Sequential(*layers)
+        self.match = nn.Identity() if in_c == out_c else nn.Conv3d(in_c, out_c, 1, bias=False)
+        self.drop = nn.Dropout3d(p_drop) if p_drop > 0 else nn.Identity()
+
+    def forward(self, x):
+        return self.drop(self.blocks(x)) + self.match(x)
+
+class Down3D(nn.Module):
+    def __init__(self, in_c, out_c):
+        super().__init__()
+        self.down = nn.Conv3d(in_c, out_c, 2, 2, bias=False)
+    def forward(self, x):
+        return self.down(x)
+
+class Up3D(nn.Module):
+    def __init__(self, in_c, out_c):
+        super().__init__()
+        self.up = nn.ConvTranspose3d(in_c, out_c, 2, 2, bias=False)
+    def forward(self, x):
+        return self.up(x)
+
+class VNet(nn.Module):
+    def __init__(self, in_channels=1, num_classes=3, base_c=16, p_drop_bottleneck=0.3):
+        super().__init__()
+        c1, c2, c3, c4, c5 = base_c, base_c*2, base_c*4, base_c*8, base_c*16
+
+        self.enc1 = ConvBlock3D(in_channels, c1, n_convs=1)
+        self.down1= Down3D(c1, c2)
+        self.enc2 = ConvBlock3D(c2, c2, n_convs=2)
+
+        self.down2= Down3D(c2, c3)
+        self.enc3 = ConvBlock3D(c3, c3, n_convs=3)
+
+        self.down3= Down3D(c3, c4)
+        self.enc4 = ConvBlock3D(c4, c4, n_convs=3)
+
+        self.down4= Down3D(c4, c5)
+        self.bott = ConvBlock3D(c5, c5, n_convs=3, p_drop=p_drop_bottleneck)
+
+        self.up1  = Up3D(c5, c4); self.dec1 = ConvBlock3D(c4, c4, n_convs=3)
+        self.up2  = Up3D(c4, c3); self.dec2 = ConvBlock3D(c3, c3, n_convs=3)
+        self.up3  = Up3D(c3, c2); self.dec3 = ConvBlock3D(c2, c2, n_convs=2)
+        self.up4  = Up3D(c2, c1); self.dec4 = ConvBlock3D(c1, c1, n_convs=1)
+
+        self.head = nn.Conv3d(c1, num_classes, 1)
+        self._init_weights()
+
+    def _init_weights(self):
+        for m in self.modules():
+            if isinstance(m, (nn.Conv3d, nn.ConvTranspose3d)):
+                nn.init.kaiming_normal_(m.weight, nonlinearity="leaky_relu")
+                if getattr(m, "bias", None) is not None:
+                    nn.init.zeros_(m.bias)
+
+    def forward(self, x):
+        e1 = self.enc1(x)
+        e2 = self.enc2(self.down1(e1))
+        e3 = self.enc3(self.down2(e2))
+        e4 = self.enc4(self.down3(e3))
+        b  = self.bott(self.down4(e4))
+
+        d1 = self.dec1(self.up1(b) + e4)
+        d2 = self.dec2(self.up2(d1) + e3)
+        d3 = self.dec3(self.up3(d2) + e2)
+        d4 = self.dec4(self.up4(d3) + e1)
+
+        return self.head(d4)
