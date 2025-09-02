@@ -34,6 +34,10 @@ Step 1: pip install -r requirements.txt
 
 Step 2: Run codes in "DataPreparation" to normalize, prepare P-AM (1), and sub-AMs (7)
 
-Step 3: python train.py 
+Step 3: Run train.py 
+
+Step 4: Convert the model output from AMs → Point Clouds → Surface Meshes, and get automatically the best surface among multiple candidates generated from a single P-AM.
+
+Step 4: Run code
 
 
