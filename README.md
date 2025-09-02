@@ -5,6 +5,11 @@ MedReShaper is an AI-based system for automatically completing 3D anatomic shape
 
 <img width="3482" height="2011" alt="image" src="https://github.com/user-attachments/assets/05009b81-fdf2-4782-ba55-25fd6024391b" />
 
+# ASM-Net Framework
+
+<img width="1440" height="473" alt="image" src="https://github.com/user-attachments/assets/8a069587-a5b2-4cf0-9e1a-fd3c67b8c3b1" />
+
+
 # Key Features:
 
 🧩 End-to-end pipeline from PCA-based perception to mesh reconstruction
