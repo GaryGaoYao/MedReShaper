@@ -25,8 +25,10 @@ V-Net:   https://github.com/yingkaisha/keras-unet-collection
 nnUnet:  https://github.com/MIC-DKFZ/nnUNet
 
 # Training Example & Quick Start
-pip install -r requirements.txt
+Step 1: pip install -r requirements.txt
 
-python train.py 
+Step 2: Run codes in "DataPreparation" to normalize, prepare P-AM (1), and sub-AMs (7)
+
+Step 3: python train.py 
 
 
