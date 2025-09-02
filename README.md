@@ -16,7 +16,7 @@ MedReShaper is an AI-based system for automatically completing 3D anatomic shape
 
 🧠 ASM-Net architecture with multi-angle fusion and its latent reasoning
 
-📦 Input & Output: 3D meshes or point clouds directly
+📦 Input & Output: 3D meshes or point clouds
 
 🔬 Clinically validated on orbital reconstruction cases
 
