@@ -12,15 +12,15 @@ MedReShaper is an AI-based system for automatically completing 3D anatomic shape
 
 # Key Features:
 
-🧩 End-to-end pipeline from PCA-based perception to mesh reconstruction
+🧩 End-to-end pipeline from PCA-based perception Attention Maps (AMs)
 
-🧠 ASM-Net architecture with attention-based latent reasoning
+🧠 ASM-Net architecture with multi-angle fusion and its latent reasoning
 
-📦 Input & Output: 3D meshes or point clouds
+📦 Input & Output: 3D meshes or point clouds directly
 
 🔬 Clinically validated on orbital reconstruction cases
 
-🌍 Multi-ethnic, multi-source datasets supported
+🌍 Evaluated by Multi-ethnic, multi-source datasets
 
 # Reference Models:
 U-Net:   https://github.com/milesial/Pytorch-UNet
